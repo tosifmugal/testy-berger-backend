@@ -1,5 +1,7 @@
 import express from "express";
 import passport from "passport";
+import { logout, myProfile } from "../controllers/user.js";
+import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
 
 
 
@@ -11,9 +13,14 @@ router.get(
     scope: ["profile"],
   })
 );
-router.get("/login", (req, res, next) => {
+router.get("/login",passport.authenticate("google"),
+ (req, res, next) => {
+  
   res.send("<h1>login</h1>");
 });
+
+router.get("/me",isAuthenticated, myProfile);
+router.get("/logout", logout);
 
 // router.get(
 //   "/login",
