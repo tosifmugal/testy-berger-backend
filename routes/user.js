@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import { logout, myProfile } from "../controllers/user.js";
+import { getAdminUsers, logout, myProfile } from "../controllers/user.js";
 import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
 
 
@@ -28,6 +28,9 @@ router.get("/logout", logout);
 //     successRedirect: process.env.FRONTEND_URL,
 //   })
 // );
+
+// Admin Routes
+router.get("/admin/users", isAuthenticated, authorizeAdmin, getAdminUsers);
 
 
 export default router;
