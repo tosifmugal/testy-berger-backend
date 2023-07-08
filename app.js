@@ -15,7 +15,7 @@ dotenv.config({
 });
 
 // Using Middlewares
-app.use(cookieParser());
+
 app.use(
     session({
       secret: process.env.SESSION_SECRET,
@@ -25,6 +25,14 @@ app.use(
      
     })
   );
+  
+app.use(cookieParser());
+app.use(express.json());
+app.use(
+  urlencoded({
+    extended: true,
+  })
+);
 
 app.use(passport.authenticate("session"));
 app.use(passport.initialize());
@@ -34,11 +42,15 @@ connectPassport();
 
 // Importing Routes
 import userRoute from "./routes/user.js";
+import orderRoute from "./routes/order.js";
+
+
 
 
 
 
 app.use("/api/v1", userRoute);
+app.use("/api/v1", orderRoute);
 
 // Using Error Middleware
 app.use(errorMiddleware);
