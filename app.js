@@ -8,7 +8,7 @@ import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 import cors from "cors";
 
 
-
+const  FRONTEND_URL = "http://localhost:5173"
 const app = express();
 export default app;
 dotenv.config({
@@ -42,7 +42,7 @@ app.use(
 app.use(
   cors({
     credentials: true,
-    origin: process.env.FRONTEND_URL,
+    origin:FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
